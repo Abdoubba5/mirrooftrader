@@ -4,35 +4,33 @@ import admin from "../../../../lib/firebaseAdmin";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const publicId = String(body.publicId || "").trim().toLowerCase();
-    const password = String(body.password || "");
+    const publicId = String(body?.publicId || "").trim();
+    const password = String(body?.password || "").trim();
 
-    if (!publicId || password.length < 6) {
-      return NextResponse.json({ ok: false, error: "INVALID_INPUT" }, { status: 400 });
+    if (!publicId || !password) {
+      return NextResponse.json({ ok: false, error: "MISSING_FIELDS" }, { status: 400 });
     }
 
-    const email = `${publicId}@mirrooftrader.com`;
+    const email = `${publicId}@mirrooftrader.local`;
 
-    const user = await adminAuth.createUser({
+    const user = await admin.auth().createUser({
       email,
       password,
       displayName: publicId,
     });
 
-    await adminDb.collection("users").doc(user.uid).set({
+    await admin.firestore().collection("users").doc(user.uid).set({
       uid: user.uid,
       publicId,
-      active: false,
-      expiresAt: null,
+      active: true,
       role: "user",
       createdAt: Date.now(),
+      expiresAt: null,
       lastRead: null,
     });
 
     return NextResponse.json({ ok: true, uid: user.uid });
-  } catch {
-    return NextResponse.json({ ok: false, error: "FAILED" }, { status: 500 });
+  } catch (e: any) {
+    return NextResponse.json({ ok: false, error: "SERVER_ERROR" }, { status: 500 });
   }
 }
-
-
