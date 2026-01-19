@@ -3,32 +3,28 @@ import admin from "../../../../lib/firebaseAdmin";
 
 function randomCode() {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  const part = (n: number) =>
-    Array.from({ length: n })
-      .map(() => chars[Math.floor(Math.random() * chars.length)])
-      .join("");
-  return `MTR-${part(4)}-${part(4)}`;
+  let out = "MTR-";
+  for (let i = 0; i < 4; i++) out += chars[Math.floor(Math.random() * chars.length)];
+  out += "-";
+  for (let i = 0; i < 4; i++) out += chars[Math.floor(Math.random() * chars.length)];
+  return out;
 }
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const durationDays = Number(body.durationDays || 30);
+    const days = Number(body?.days || 30);
 
     const code = randomCode();
-
-    await adminDb.collection("codes").doc(code).set({
+    await admin.firestore().collection("codes").doc(code).set({
       code,
-      durationDays,
+      days,
       used: false,
-      usedBy: null,
       createdAt: Date.now(),
     });
 
     return NextResponse.json({ ok: true, code });
-  } catch {
-    return NextResponse.json({ ok: false, error: "FAILED" }, { status: 500 });
+  } catch (e: any) {
+    return NextResponse.json({ ok: false, error: "SERVER_ERROR" }, { status: 500 });
   }
 }
-
-
