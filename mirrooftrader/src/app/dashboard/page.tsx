@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth, db } from "@/lib/firebase";
+import { auth } from "../../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
@@ -115,3 +115,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+
