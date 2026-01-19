@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Lang, t } from "@/lib/i18n";
+import ... from "../lib/i18n"
 
 export default function HomePage() {
   const [lang, setLang] = useState<Lang>("ar");
@@ -82,3 +82,4 @@ export default function HomePage() {
     </div>
   );
 }
+
