@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth, db } from "@/lib/firebase";
+import { auth } from "../../lib/firebase";
 import { doc, runTransaction } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
@@ -105,3 +105,4 @@ export default function ActivatePage() {
     </div>
   );
 }
+
