@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import ... from "../../../../lib/firebaseAdmin"
+import admin from "../../../../lib/firebaseAdmin";
 
 export async function POST(req: Request) {
   try {
@@ -34,4 +34,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "FAILED" }, { status: 500 });
   }
 }
+
 
