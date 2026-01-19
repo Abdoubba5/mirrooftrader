@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import ... from "../../lib/firebase"
+import firebaseApp from "../../lib/firebase";
 import {
   collection,
   doc,
@@ -462,4 +462,5 @@ export default function ReaderPage() {
     </div>
   );
 }
+
 
