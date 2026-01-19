@@ -2,12 +2,12 @@
 const nextConfig = {
   reactStrictMode: true,
 
-  // ✅ هذا يخلي الموقع يبني حتى لو كاين أخطاء TypeScript
+  // ✅ لا توقف الـ Build بسبب أخطاء TypeScript
   typescript: {
     ignoreBuildErrors: true,
   },
 
-  // ✅ هذا يخلي الموقع يبني حتى لو كاين مشاكل ESLint
+  // ✅ لا توقف الـ Build بسبب أخطاء ESLint
   eslint: {
     ignoreDuringBuilds: true,
   },
